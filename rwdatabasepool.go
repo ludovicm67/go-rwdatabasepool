@@ -23,7 +23,7 @@ func Init(write, read []*sql.DB) *RWDatabasePool {
 		write = []*sql.DB{noDB}
 	}
 	if len(read) == 0 {
-		read = []*sql.DB{noDB}
+		read = write
 	}
 	return &RWDatabasePool{
 		writePool:    write,

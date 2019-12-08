@@ -51,7 +51,7 @@ func TestMultpileWrite(t *testing.T) {
 	// check database pool
 	pool := Init(dbWrite, dbRead)
 	assert.Equal(t, pool.writePool, dbWrite)
-	assert.Equal(t, 1, len(pool.readPool)) // one read connection will be created
+	assert.Equal(t, pool.readPool, dbWrite) // read = write
 	assert.Zero(t, pool.writeCounter)
 	assert.Zero(t, pool.readCounter)
 
@@ -85,7 +85,7 @@ func TestMultpileRead(t *testing.T) {
 
 	// check database pool
 	pool := Init(dbWrite, dbRead)
-	assert.Equal(t, 1, len(pool.writePool)) // one read connection will be created
+	assert.Equal(t, 1, len(pool.writePool)) // one write connection will be created
 	assert.Equal(t, pool.readPool, dbRead)
 	assert.Zero(t, pool.writeCounter)
 	assert.Zero(t, pool.readCounter)
